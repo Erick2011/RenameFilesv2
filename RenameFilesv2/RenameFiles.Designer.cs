@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RenameFiles));
-            this.lblNote = new System.Windows.Forms.Label();
             this.btnUndoChanges = new System.Windows.Forms.Button();
             this.lblCredits = new System.Windows.Forms.Label();
             this.btnSelectAll = new System.Windows.Forms.Button();
@@ -46,26 +45,19 @@
             this.btnCopyPath = new System.Windows.Forms.Button();
             this.btnSelectPath = new System.Windows.Forms.Button();
             this.txtPathFolder = new System.Windows.Forms.TextBox();
+            this.chkBegginingFrom = new System.Windows.Forms.CheckBox();
+            this.txtBeginningFrom = new System.Windows.Forms.TextBox();
+            this.lblNote = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lblNote
-            // 
-            this.lblNote.AutoSize = true;
-            this.lblNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNote.Location = new System.Drawing.Point(433, 78);
-            this.lblNote.Name = "lblNote";
-            this.lblNote.Size = new System.Drawing.Size(232, 13);
-            this.lblNote.TabIndex = 13;
-            this.lblNote.Text = "Crea correlativos (Temp*Nro Corelativo)";
-            // 
             // btnUndoChanges
             // 
             this.btnUndoChanges.Enabled = false;
-            this.btnUndoChanges.Location = new System.Drawing.Point(707, 73);
+            this.btnUndoChanges.Location = new System.Drawing.Point(231, 159);
             this.btnUndoChanges.Name = "btnUndoChanges";
             this.btnUndoChanges.Size = new System.Drawing.Size(126, 23);
             this.btnUndoChanges.TabIndex = 10;
@@ -85,7 +77,7 @@
             // btnSelectAll
             // 
             this.btnSelectAll.Enabled = false;
-            this.btnSelectAll.Location = new System.Drawing.Point(300, 73);
+            this.btnSelectAll.Location = new System.Drawing.Point(300, 71);
             this.btnSelectAll.Name = "btnSelectAll";
             this.btnSelectAll.Size = new System.Drawing.Size(124, 23);
             this.btnSelectAll.TabIndex = 7;
@@ -96,6 +88,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.lbRenamedList);
+            this.groupBox4.Controls.Add(this.btnUndoChanges);
             this.groupBox4.Location = new System.Drawing.Point(430, 97);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(409, 304);
@@ -113,6 +106,9 @@
             this.lbRenamedList.Name = "lbRenamedList";
             this.lbRenamedList.Size = new System.Drawing.Size(397, 274);
             this.lbRenamedList.TabIndex = 0;
+            this.lbRenamedList.DragDrop += new System.Windows.Forms.DragEventHandler(this.lbRenamedList_DragDrop);
+            this.lbRenamedList.DragOver += new System.Windows.Forms.DragEventHandler(this.lbRenamedList_DragOver);
+            this.lbRenamedList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbRenamedList_MouseDown);
             // 
             // groupBox3
             // 
@@ -171,6 +167,7 @@
             this.btnRename.TabIndex = 2;
             this.btnRename.Text = "Renombrar";
             this.btnRename.UseVisualStyleBackColor = true;
+            this.btnRename.Click += new System.EventHandler(this.btnRename_Click);
             // 
             // txtSerieName
             // 
@@ -226,13 +223,43 @@
             this.txtPathFolder.Size = new System.Drawing.Size(273, 20);
             this.txtPathFolder.TabIndex = 0;
             // 
+            // chkBegginingFrom
+            // 
+            this.chkBegginingFrom.AutoSize = true;
+            this.chkBegginingFrom.Location = new System.Drawing.Point(439, 74);
+            this.chkBegginingFrom.Name = "chkBegginingFrom";
+            this.chkBegginingFrom.Size = new System.Drawing.Size(79, 17);
+            this.chkBegginingFrom.TabIndex = 14;
+            this.chkBegginingFrom.Text = "Desde Cap";
+            this.chkBegginingFrom.UseVisualStyleBackColor = true;
+            this.chkBegginingFrom.CheckedChanged += new System.EventHandler(this.chkBegginingFrom_CheckedChanged);
+            // 
+            // txtBeginningFrom
+            // 
+            this.txtBeginningFrom.Enabled = false;
+            this.txtBeginningFrom.Location = new System.Drawing.Point(513, 72);
+            this.txtBeginningFrom.Name = "txtBeginningFrom";
+            this.txtBeginningFrom.Size = new System.Drawing.Size(60, 20);
+            this.txtBeginningFrom.TabIndex = 15;
+            // 
+            // lblNote
+            // 
+            this.lblNote.AutoSize = true;
+            this.lblNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNote.Location = new System.Drawing.Point(18, 419);
+            this.lblNote.Name = "lblNote";
+            this.lblNote.Size = new System.Drawing.Size(232, 13);
+            this.lblNote.TabIndex = 13;
+            this.lblNote.Text = "Crea correlativos (Temp*Nro Corelativo)";
+            // 
             // RenameFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(854, 441);
+            this.Controls.Add(this.txtBeginningFrom);
+            this.Controls.Add(this.chkBegginingFrom);
             this.Controls.Add(this.lblNote);
-            this.Controls.Add(this.btnUndoChanges);
             this.Controls.Add(this.lblCredits);
             this.Controls.Add(this.btnSelectAll);
             this.Controls.Add(this.groupBox4);
@@ -240,7 +267,10 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "RenameFiles";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rename Files";
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -255,8 +285,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblNote;
         private System.Windows.Forms.Button btnUndoChanges;
         private System.Windows.Forms.Label lblCredits;
         private System.Windows.Forms.Button btnSelectAll;
@@ -273,6 +301,9 @@
         private System.Windows.Forms.TextBox txtPathFolder;
         private System.Windows.Forms.Label lblDragMessage;
         private System.Windows.Forms.CheckedListBox clOriginalList;
+        private System.Windows.Forms.CheckBox chkBegginingFrom;
+        private System.Windows.Forms.TextBox txtBeginningFrom;
+        private System.Windows.Forms.Label lblNote;
     }
 }
 

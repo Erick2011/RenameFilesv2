@@ -3,6 +3,7 @@
     using RenameFilesv2.Models;
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.IO;
     using System.Linq;
     using System.Windows.Forms;
@@ -73,6 +74,7 @@
             lblDragMessage.Visible = true;
             btnUndoChanges.Enabled = false;
             btnSelectAll.Text = "Seleccionar Todo";
+            btnSelectAll.Enabled = false;
         }
 
         private void clOriginalList_DragEnter(object sender, DragEventArgs e)
@@ -89,6 +91,8 @@
 
             foreach (var file in droppedFiles)
             {
+                btnSelectAll.Enabled = true;
+
                 if (!isFolder(file))
                 {
                     if (!isListed(file))
@@ -244,6 +248,97 @@
                 btnSelectAll.Text = "Seleccionar Todo";
             }
         }
+
+        private void chkBegginingFrom_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBegginingFrom.Checked)
+            {
+                txtBeginningFrom.Text = string.Empty;
+                txtBeginningFrom.Enabled = true;
+            }
+            else
+            {
+                txtBeginningFrom.Text = string.Empty;
+                txtBeginningFrom.Enabled = false;
+            }
+        }
+
+        private void btnRename_Click(object sender, EventArgs e)
+        {
+            if (txtSerieName.Text.Equals(""))
+            {
+                MessageBox.Show(
+                    "Debe ingresar el nombre de la Serie/Película",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button1);
+                return;
+            }
+            if (checkedItems.Count == 0)
+            {
+                MessageBox.Show(
+                    "Debe ingresar al menos un archivo a renombrar",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button1);
+                return;
+            }
+            if (chkBegginingFrom.Checked && txtBeginningFrom.Text.Equals(string.Empty))
+            {
+                MessageBox.Show(
+                    "Debe ingresar el número correlativo",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button1);
+                txtBeginningFrom.Focus();
+                return;
+            }
+
+            foreach (var file in lbRenamedList.Items)
+            {
+
+            }
+        }
+
+        #region Drag and Drop ListBox
+        private void lbRenamedList_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.lbRenamedList.SelectedItem == null) return;
+            this.lbRenamedList.DoDragDrop(this.lbRenamedList.SelectedItem, DragDropEffects.Move);
+        }
+
+        private void lbRenamedList_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void lbRenamedList_DragDrop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                Point point = lbRenamedList.PointToClient(new Point(e.X, e.Y));
+                int index = this.lbRenamedList.IndexFromPoint(point);
+                if (index < 0) index = this.lbRenamedList.Items.Count - 1;
+                object data = e.Data.GetData(typeof(string));
+                this.lbRenamedList.Items.Remove(data);
+                this.lbRenamedList.Items.Insert(index, data);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Acción no permitida",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button1);
+            }
+        }
+
         #endregion
+
+        #endregion       
     }
 }
