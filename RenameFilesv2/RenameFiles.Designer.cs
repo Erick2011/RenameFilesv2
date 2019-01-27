@@ -36,6 +36,8 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lbRenamedList = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblDragMessage = new System.Windows.Forms.Label();
+            this.clOriginalList = new System.Windows.Forms.CheckedListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnRename = new System.Windows.Forms.Button();
             this.txtSerieName = new System.Windows.Forms.TextBox();
@@ -44,8 +46,6 @@
             this.btnCopyPath = new System.Windows.Forms.Button();
             this.btnSelectPath = new System.Windows.Forms.Button();
             this.txtPathFolder = new System.Windows.Forms.TextBox();
-            this.lblDragMessage = new System.Windows.Forms.Label();
-            this.clOriginalList = new System.Windows.Forms.CheckedListBox();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -91,6 +91,7 @@
             this.btnSelectAll.TabIndex = 7;
             this.btnSelectAll.Text = "Selecciona Todo";
             this.btnSelectAll.UseVisualStyleBackColor = true;
+            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
             // 
             // groupBox4
             // 
@@ -123,6 +124,32 @@
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = " Archivos de la Carpeta";
+            // 
+            // lblDragMessage
+            // 
+            this.lblDragMessage.AutoSize = true;
+            this.lblDragMessage.BackColor = System.Drawing.SystemColors.Window;
+            this.lblDragMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDragMessage.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblDragMessage.Location = new System.Drawing.Point(72, 142);
+            this.lblDragMessage.Name = "lblDragMessage";
+            this.lblDragMessage.Size = new System.Drawing.Size(250, 20);
+            this.lblDragMessage.TabIndex = 3;
+            this.lblDragMessage.Text = "Arrastra la carpeta de tus archivos";
+            // 
+            // clOriginalList
+            // 
+            this.clOriginalList.AllowDrop = true;
+            this.clOriginalList.CheckOnClick = true;
+            this.clOriginalList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clOriginalList.FormattingEnabled = true;
+            this.clOriginalList.Location = new System.Drawing.Point(6, 17);
+            this.clOriginalList.Name = "clOriginalList";
+            this.clOriginalList.Size = new System.Drawing.Size(397, 270);
+            this.clOriginalList.TabIndex = 2;
+            this.clOriginalList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clOriginalList_ItemCheck);
+            this.clOriginalList.DragDrop += new System.Windows.Forms.DragEventHandler(this.clOriginalList_DragDrop);
+            this.clOriginalList.DragEnter += new System.Windows.Forms.DragEventHandler(this.clOriginalList_DragEnter);
             // 
             // groupBox2
             // 
@@ -179,6 +206,7 @@
             this.btnCopyPath.TabIndex = 2;
             this.btnCopyPath.Text = "Pegar Ruta";
             this.btnCopyPath.UseVisualStyleBackColor = true;
+            this.btnCopyPath.Click += new System.EventHandler(this.btnCopyPath_Click);
             // 
             // btnSelectPath
             // 
@@ -197,29 +225,6 @@
             this.txtPathFolder.Name = "txtPathFolder";
             this.txtPathFolder.Size = new System.Drawing.Size(273, 20);
             this.txtPathFolder.TabIndex = 0;
-            // 
-            // lblDragMessage
-            // 
-            this.lblDragMessage.AutoSize = true;
-            this.lblDragMessage.BackColor = System.Drawing.SystemColors.Window;
-            this.lblDragMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDragMessage.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.lblDragMessage.Location = new System.Drawing.Point(72, 142);
-            this.lblDragMessage.Name = "lblDragMessage";
-            this.lblDragMessage.Size = new System.Drawing.Size(250, 20);
-            this.lblDragMessage.TabIndex = 3;
-            this.lblDragMessage.Text = "Arrastra la carpeta de tus archivos";
-            // 
-            // clOriginalList
-            // 
-            this.clOriginalList.AllowDrop = true;
-            this.clOriginalList.CheckOnClick = true;
-            this.clOriginalList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clOriginalList.FormattingEnabled = true;
-            this.clOriginalList.Location = new System.Drawing.Point(6, 17);
-            this.clOriginalList.Name = "clOriginalList";
-            this.clOriginalList.Size = new System.Drawing.Size(397, 270);
-            this.clOriginalList.TabIndex = 2;
             // 
             // RenameFiles
             // 
