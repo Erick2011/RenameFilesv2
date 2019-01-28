@@ -47,7 +47,6 @@
             this.txtPathFolder = new System.Windows.Forms.TextBox();
             this.chkBegginingFrom = new System.Windows.Forms.CheckBox();
             this.txtBeginningFrom = new System.Windows.Forms.TextBox();
-            this.lblNote = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -242,24 +241,14 @@
             this.txtBeginningFrom.Size = new System.Drawing.Size(60, 20);
             this.txtBeginningFrom.TabIndex = 15;
             // 
-            // lblNote
-            // 
-            this.lblNote.AutoSize = true;
-            this.lblNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNote.Location = new System.Drawing.Point(18, 419);
-            this.lblNote.Name = "lblNote";
-            this.lblNote.Size = new System.Drawing.Size(232, 13);
-            this.lblNote.TabIndex = 13;
-            this.lblNote.Text = "Crea correlativos (Temp*Nro Corelativo)";
-            // 
             // RenameFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Thistle;
             this.ClientSize = new System.Drawing.Size(854, 441);
             this.Controls.Add(this.txtBeginningFrom);
             this.Controls.Add(this.chkBegginingFrom);
-            this.Controls.Add(this.lblNote);
             this.Controls.Add(this.lblCredits);
             this.Controls.Add(this.btnSelectAll);
             this.Controls.Add(this.groupBox4);
@@ -303,7 +292,6 @@
         private System.Windows.Forms.CheckedListBox clOriginalList;
         private System.Windows.Forms.CheckBox chkBegginingFrom;
         private System.Windows.Forms.TextBox txtBeginningFrom;
-        private System.Windows.Forms.Label lblNote;
     }
 }
 

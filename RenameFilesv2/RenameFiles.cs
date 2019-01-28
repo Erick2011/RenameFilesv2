@@ -20,6 +20,7 @@
         public RenameFiles()
         {
             InitializeComponent();
+            //this.BackColor = Color.FromArgb(255, 232, 232);
         }
         #endregion
 
