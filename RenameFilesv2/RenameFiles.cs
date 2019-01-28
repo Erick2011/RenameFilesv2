@@ -315,10 +315,12 @@
                         if (i < 10)
                         {
                             File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\0{i} {txtSerieName.Text}{fileInfo.Extension}");
+                            originalList.RemoveAll(x => x.FileName == file.ToString());
                         }
                         else
                         {
                             File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\{i} {txtSerieName.Text}{fileInfo.Extension}");
+                            originalList.RemoveAll(x => x.FileName == file.ToString());
                         }
                         i++;
                     }
@@ -327,10 +329,12 @@
                         if (i < 10)
                         {
                             File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\{txtSeason.Text}x0{i} {txtSerieName.Text}{fileInfo.Extension}");
+                            originalList.RemoveAll(x => x.FileName == file.ToString());
                         }
                         else
                         {
                             File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\{txtSeason.Text}x{i} {txtSerieName.Text}{fileInfo.Extension}");
+                            originalList.RemoveAll(x => x.FileName == file.ToString());
                         }
                         i++;
                     }
@@ -350,10 +354,12 @@
                         if (Nr < 10)
                         {
                             File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\0{Nr} {txtSerieName.Text}{fileInfo.Extension}");
+                            originalList.RemoveAll(x => x.FileName == file.ToString());
                         }
                         else
                         {
                             File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\{Nr} {txtSerieName.Text}{fileInfo.Extension}");
+                            originalList.RemoveAll(x => x.FileName == file.ToString());
                         }
                         Nr++;
                     }
@@ -362,15 +368,23 @@
                         if (Nr < 10)
                         {
                             File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\{txtSeason.Text}x0{Nr} {txtSerieName.Text}{fileInfo.Extension}");
+                            originalList.RemoveAll(x => x.FileName == file.ToString());
                         }
                         else
                         {
                             File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\{txtSeason.Text}x{Nr} {txtSerieName.Text}{fileInfo.Extension}");
+                            originalList.RemoveAll(x => x.FileName == file.ToString());
                         }
                         Nr++;
                     }
                 }
             }
+
+            MessageBox.Show("Archivos renombrados exitosamente!!",
+                "Información",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1);
 
             RefreshControls();
         }
@@ -380,6 +394,8 @@
             RefreshCheckBoxList();
             lbRenamedList.Items.Clear();
             chkBegginingFrom.Checked = false;
+            txtSeason.Text = string.Empty;
+            txtSerieName.Text = string.Empty;
             txtBeginningFrom.Text = string.Empty;
             txtBeginningFrom.Enabled = false;
         }
