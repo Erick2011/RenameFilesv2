@@ -55,9 +55,10 @@
                 clOriginalList.Items.Add(file.Name);
 
                 FileInf fileInf = new FileInf();
-                fileInf.fileName = file.Name;
-                fileInf.fullPath = file.FullName;
-                fileInf.extension = file.Extension;
+                fileInf.FileName = file.Name;
+                fileInf.FullPath = file.FullName;
+                fileInf.DirectoryName = file.DirectoryName;
+                fileInf.Extension = file.Extension;
                 originalList.Add(fileInf);
             }
         }
@@ -98,11 +99,12 @@
                     if (!isListed(file))
                     {
                         FileInf fileInfo = new FileInf();
-                        fileInfo.fullPath = file;
-                        fileInfo.fileName = Path.GetFileName(file);
-                        fileInfo.extension = Path.GetExtension(file);
+                        fileInfo.FullPath = file;
+                        fileInfo.FileName = Path.GetFileName(file);
+                        fileInfo.DirectoryName = Path.GetDirectoryName(file);
+                        fileInfo.Extension = Path.GetExtension(file);
                         originalList.Add(fileInfo);
-                        clOriginalList.Items.Add(fileInfo.fileName);
+                        clOriginalList.Items.Add(fileInfo.FileName);
                     }
                 }
                 if (isFolder(file))
@@ -131,11 +133,12 @@
                 if (!isListed(file.FullName))
                 {
                     FileInf fileInfo = new FileInf();
-                    fileInfo.fileName = file.Name;
-                    fileInfo.fullPath = file.FullName;
-                    fileInfo.extension = file.Extension;
+                    fileInfo.FileName = file.Name;
+                    fileInfo.FullPath = file.FullName;
+                    fileInfo.DirectoryName = file.DirectoryName;
+                    fileInfo.Extension = file.Extension;
                     originalList.Add(fileInfo);
-                    clOriginalList.Items.Add(fileInfo.fileName);
+                    clOriginalList.Items.Add(fileInfo.FileName);
                 }
             }
         }
@@ -144,7 +147,7 @@
         {
             foreach (FileInf item in originalList)
             {
-                if (filename.Equals(item.fullPath))
+                if (filename.Equals(item.FullPath))
                 {
                     return true;
                 }
@@ -186,14 +189,14 @@
 
             if (e.NewValue == CheckState.Checked)
             {
-                FileInf fileInfo = FindFileByName(fileName);
+                FileInf fileInfo = FindFileByName(originalList, fileName);
                 checkedItems.Add(fileInfo);
-                lbRenamedList.Items.Add(fileInfo.fileName);
+                lbRenamedList.Items.Add(fileInfo.FileName);
             }
 
             if (e.NewValue == CheckState.Unchecked)
             {
-                checkedItems.RemoveAll(x => x.fileName == fileName);
+                checkedItems.RemoveAll(x => x.FileName == fileName);
                 lbRenamedList.Items.Remove(fileName);
             }
             if (isAllChecked())
@@ -206,16 +209,17 @@
             }               
         }
 
-        private FileInf FindFileByName(string fileName)
+        private FileInf FindFileByName(List<FileInf> list, string fileName)
         {         
-           var result = from fileInfo in originalList
-                        where fileInfo.fileName == fileName
+           var result = from fileInfo in list
+                        where fileInfo.FileName == fileName
                         select fileInfo;
 
             FileInf fileInf = new FileInf();
-            fileInf.fileName = result.First().fileName;
-            fileInf.fullPath = result.First().fullPath;
-            fileInf.extension = result.First().extension;
+            fileInf.FileName = result.First().FileName;
+            fileInf.FullPath = result.First().FullPath;
+            fileInf.DirectoryName = result.First().DirectoryName;
+            fileInf.Extension = result.First().Extension;
 
             return fileInf;
         }
@@ -297,9 +301,95 @@
                 return;
             }
 
-            foreach (var file in lbRenamedList.Items)
-            {
+            int i = 1;
 
+            if (txtBeginningFrom.Text.Equals(string.Empty) && !chkBegginingFrom.Checked)
+            {
+                FileInf fileInfo = new FileInf();
+                foreach (var file in lbRenamedList.Items)
+                {
+                    fileInfo = FindFileByName(originalList, file.ToString());
+
+                    if (txtSeason.Text.Equals(string.Empty))
+                    {
+                        if (i < 10)
+                        {
+                            File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\0{i} {txtSerieName.Text}{fileInfo.Extension}");
+                        }
+                        else
+                        {
+                            File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\{i} {txtSerieName.Text}{fileInfo.Extension}");
+                        }
+                        i++;
+                    }
+                    else
+                    {
+                        if (i < 10)
+                        {
+                            File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\{txtSeason.Text}x0{i} {txtSerieName.Text}{fileInfo.Extension}");
+                        }
+                        else
+                        {
+                            File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\{txtSeason.Text}x{i} {txtSerieName.Text}{fileInfo.Extension}");
+                        }
+                        i++;
+                    }
+                }
+            }
+            else
+            {
+                FileInf fileInfo = new FileInf();
+                int Nr = Convert.ToInt32(txtBeginningFrom.Text);
+
+                foreach (var file in lbRenamedList.Items)
+                {
+                    fileInfo = FindFileByName(originalList, file.ToString());
+
+                    if (txtSeason.Text.Equals(string.Empty))
+                    {
+                        if (Nr < 10)
+                        {
+                            File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\0{Nr} {txtSerieName.Text}{fileInfo.Extension}");
+                        }
+                        else
+                        {
+                            File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\{Nr} {txtSerieName.Text}{fileInfo.Extension}");
+                        }
+                        Nr++;
+                    }
+                    else
+                    {
+                        if (Nr < 10)
+                        {
+                            File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\{txtSeason.Text}x0{Nr} {txtSerieName.Text}{fileInfo.Extension}");
+                        }
+                        else
+                        {
+                            File.Move($"{fileInfo.FullPath}", $"{fileInfo.DirectoryName}\\{txtSeason.Text}x{Nr} {txtSerieName.Text}{fileInfo.Extension}");
+                        }
+                        Nr++;
+                    }
+                }
+            }
+
+            RefreshControls();
+        }
+
+        private void RefreshControls()
+        {
+            RefreshCheckBoxList();
+            lbRenamedList.Items.Clear();
+            chkBegginingFrom.Checked = false;
+            txtBeginningFrom.Text = string.Empty;
+            txtBeginningFrom.Enabled = false;
+        }
+
+        private void RefreshCheckBoxList()
+        {
+            clOriginalList.Items.Clear();
+            foreach (FileInf file in originalList)
+            {
+                clOriginalList.Items.Add(file.FileName);
             }
         }
 

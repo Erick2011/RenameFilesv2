@@ -2,10 +2,12 @@
 {
     public class FileInf
     {
-        public string fileName { get; set; }
+        public string FileName { get; set; }
 
-        public string fullPath { get; set; }
+        public string FullPath { get; set; }
 
-        public string extension { get; set; }
+        public string DirectoryName { get; set; }
+
+        public string Extension { get; set; }      
     }
 }

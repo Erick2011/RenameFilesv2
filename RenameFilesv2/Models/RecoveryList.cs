@@ -8,6 +8,6 @@ namespace RenameFilesv2.Models
 {
     class RecoveryList: FileInf
     {
-        public string fileNameNew { get; set; }
+        public string FileNameNew { get; set; }
     }
 }
