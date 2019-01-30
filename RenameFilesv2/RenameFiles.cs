@@ -20,7 +20,6 @@
         public RenameFiles()
         {
             InitializeComponent();
-            //this.BackColor = Color.FromArgb(255, 232, 232);
         }
         #endregion
 
@@ -90,6 +89,11 @@
         private void clOriginalList_DragDrop(object sender, DragEventArgs e)
         {
             string[] droppedFiles = ((string[])e.Data.GetData(DataFormats.FileDrop));
+
+            if(droppedFiles.Count() > 0)
+            {
+                lblDragMessage.Visible = false;
+            }
 
             foreach (var file in droppedFiles)
             {

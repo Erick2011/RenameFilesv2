@@ -100,6 +100,7 @@
             this.lbRenamedList.AllowDrop = true;
             this.lbRenamedList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbRenamedList.FormattingEnabled = true;
+            this.lbRenamedList.HorizontalScrollbar = true;
             this.lbRenamedList.ItemHeight = 18;
             this.lbRenamedList.Location = new System.Drawing.Point(6, 19);
             this.lbRenamedList.Name = "lbRenamedList";
@@ -138,6 +139,7 @@
             this.clOriginalList.CheckOnClick = true;
             this.clOriginalList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clOriginalList.FormattingEnabled = true;
+            this.clOriginalList.HorizontalScrollbar = true;
             this.clOriginalList.Location = new System.Drawing.Point(6, 17);
             this.clOriginalList.Name = "clOriginalList";
             this.clOriginalList.Size = new System.Drawing.Size(397, 270);
